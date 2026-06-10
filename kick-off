@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyecto SharePoint — Glove Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0f0f0f;
+  --white: #f8f7f3;
+  --offwhite: #f0efe9;
+  --border: #dddbd3;
+  --text: #1a1a1a;
+  --muted: #5a5a5a;
+  --light: #8a8a8a;
+  --amber: #9a5e10;
+  --amber-bg: #fdf3e3;
+  --teal: #0a4535;
+  --teal-bg: #e4f2ed;
+  --blue: #0a3d6b;
+  --blue-bg: #e8f0f9;
+  --green: #2a4e10;
+  --green-bg: #eaf2e0;
+  --purple: #3b2a7a;
+  --purple-bg: #f0eefb;
+  --red: #7a1e1e;
+  --red-bg: #faeaea;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); font-size: 15px; line-height: 1.6; }
+.page { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+
+.hero { background: var(--black); padding: 5rem 2rem 4rem; }
+.hero-inner { max-width: 820px; margin: 0 auto; }
+.hero-tag { display: inline-block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); border: .5px solid rgba(255,255,255,.2); padding: 4px 12px; border-radius: 20px; margin-bottom: 1.75rem; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 400; color: #fff; line-height: 1.1; max-width: 560px; margin-bottom: 1.25rem; }
+.hero-lead { font-size: 15px; color: rgba(255,255,255,.75); max-width: 500px; line-height: 1.7; margin-bottom: 2.5rem; }
+.hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; padding-top: 2rem; border-top: .5px solid rgba(255,255,255,.15); }
+.hm label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+.hm span { font-size: 13px; color: #fff; font-weight: 500; }
+
+.section { padding: 4rem 0; border-bottom: .5px solid var(--border); }
+.section:last-child { border-bottom: none; }
+.section-label { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--light); margin-bottom: .75rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3vw, 30px); font-weight: 400; margin-bottom: 1rem; line-height: 1.2; }
+.section-desc { font-size: 14px; color: var(--muted); max-width: 620px; line-height: 1.75; margin-bottom: 2rem; }
+
+.objetivo-box { background: var(--black); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+.objetivo-box p { font-size: 15px; color: #fff; line-height: 1.75; }
+.objetivo-box strong { color: #fff; font-weight: 600; }
+
+.obj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+.obj-card { border: .5px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; background: #fff; }
+.obj-num { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--border); line-height: 1; margin-bottom: .5rem; }
+.obj-title { font-size: 12.5px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: .3rem; }
+.obj-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: .75rem; }
+.crit-card { border-radius: 10px; padding: 1.5rem; border: .5px solid var(--border); background: #fff; }
+.crit-icon { font-size: 18px; margin-bottom: .75rem; }
+.crit-title { font-size: 13px; font-weight: 600; margin-bottom: 1rem; }
+.crit-item { display: flex; gap: .6rem; font-size: 12.5px; color: var(--muted); line-height: 1.55; padding: .45rem 0; border-bottom: .5px solid var(--border); }
+.crit-item:last-child { border-bottom: none; }
+.crit-item::before { content: "→"; color: var(--border); flex-shrink: 0; }
+.crit-item .sub { display: block; font-size: 11px; color: var(--light); margin-top: 2px; }
+.shared-card { border-radius: 10px; padding: 1.5rem; background: var(--black); }
+.shared-card .crit-title { color: #fff; }
+.shared-card .crit-item { color: rgba(255,255,255,.8); border-bottom-color: rgba(255,255,255,.1); }
+.shared-card .crit-item::before { color: rgba(255,255,255,.3); }
+
+.etapas { display: flex; flex-direction: column; gap: .6rem; }
+.etapa { border: .5px solid var(--border); border-radius: 10px; background: #fff; overflow: hidden; }
+.etapa-header { display: flex; align-items: baseline; gap: 1rem; padding: 1.1rem 1.25rem .6rem; }
+.etapa-num { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--border); min-width: 16px; }
+.etapa-title { font-size: 13.5px; font-weight: 500; }
+.etapa-body { padding: 0 1.25rem 1.1rem calc(1.25rem + 16px + 1rem); }
+.etapa-desc { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin-bottom: .65rem; }
+.etapa-footer { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.etapa-tag { font-size: 10.5px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+.etapa-tool { font-size: 10.5px; padding: 3px 10px; border-radius: 20px; background: var(--black); color: #fff; }
+.etapa-time { font-size: 10.5px; padding: 3px 10px; border-radius: 20px; background: var(--offwhite); color: var(--muted); border: .5px solid var(--border); }
+
+.tree-wrap { background: #fff; border: .5px solid var(--border); border-radius: 12px; padding: 1.75rem; overflow-x: auto; }
+.tree { font-size: 13px; }
+.tree ul { list-style: none; padding: 0; margin: 0; }
+.tree li { position: relative; padding-left: 20px; }
+.tree > ul > li { padding-left: 0; }
+.tree li::before { content: ''; position: absolute; top: 14px; left: 0; width: 12px; height: .5px; background: var(--border); }
+.tree li::after { content: ''; position: absolute; top: 0; left: 0; width: .5px; background: var(--border); }
+.tree li:last-child::after { height: 14px; }
+.tree li:not(:last-child)::after { height: 100%; }
+.tree > ul > li::before, .tree > ul > li::after { display: none; }
+.tree-row { display: flex; align-items: center; gap: .6rem; padding: 4px 0; flex-wrap: wrap; }
+.lbl { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; line-height: 1.3; white-space: nowrap; }
+.tree-note { font-size: 11px; color: var(--light); font-style: italic; }
+.chip-dest   { background: var(--teal-bg);   color: var(--teal);   border: .5px solid #8ecabc; }
+.chip-file   { background: var(--offwhite);  color: var(--muted);  border: .5px solid var(--border); font-weight: 400; }
+.chip-hotel  { background: var(--blue-bg);   color: var(--blue);   border: .5px solid #a8c4e8; }
+.chip-tras   { background: var(--amber-bg);  color: var(--amber);  border: .5px solid #e8c87a; }
+.chip-sub    { background: #fff;             color: var(--muted);  border: .5px solid var(--border); font-weight: 400; }
+.chip-rest   { background: var(--purple-bg); color: var(--purple); border: .5px solid #c4b8f0; }
+.chip-ext    { background: var(--offwhite);  color: var(--light);  border: .5px dashed var(--border); font-weight: 400; font-style: italic; }
+.chip-warn   { background: var(--red-bg);    color: var(--red);    border: .5px solid #e0b0b0; text-decoration: line-through; opacity: .7; font-weight: 400; }
+.chip-db     { background: var(--black);     color: #fff;          border: .5px solid #444; }
+.chip-open   { background: var(--amber-bg);  color: var(--amber);  border: .5px dashed #e8c87a; font-weight: 400; }
+.tree-divider { border: none; border-top: .5px solid var(--border); margin: 1.25rem 0; }
+
+.open-box { background: var(--amber-bg); border: .5px solid #e8c87a; border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+.open-box-title { font-size: 12px; font-weight: 600; color: var(--amber); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .75rem; }
+.open-item { display: flex; gap: .75rem; font-size: 12.5px; color: var(--amber); line-height: 1.6; padding: .4rem 0; border-bottom: .5px solid #e8c87a; }
+.open-item:last-child { border-bottom: none; }
+.open-item::before { content: "?"; font-weight: 700; flex-shrink: 0; }
+
+.note { display: flex; gap: 1rem; padding: 1rem 1.25rem; border-radius: 10px; margin-top: 1.25rem; }
+.note-text { font-size: 12.5px; line-height: 1.65; }
+.note-text strong { font-weight: 600; }
+
+@media (max-width: 600px) {
+  .hero { padding: 3.5rem 1.25rem 3rem; }
+  .page { padding: 0 1.25rem; }
+  .hero-meta { gap: 1.25rem; }
+  .section { padding: 3rem 0; }
+  .two-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Proyecto interno · Junio 2026</div>
+    <h1>Organización del<br>SharePoint</h1>
+    <p class="hero-lead">Convertir nuestro SharePoint en una fuente de información confiable, ordenada y fácil de usar — para el equipo y para la IA.</p>
+    <div class="hero-meta">
+      <div class="hm"><label>Responsable</label><span>Lore</span></div>
+      <div class="hm"><label>Soporte</label><span>Equipo de Ops</span></div>
+      <div class="hm"><label>Validación de contenido</label><span>Sales</span></div>
+      <div class="hm"><label>Arranque</label><span>Junio 2026</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 01 OBJETIVO -->
+  <div class="section">
+    <h2 class="section-title">Objetivo</h2>
+    <div class="objetivo-box">
+      <p>Que el equipo pueda <strong>consultar cualquier información de Glove de forma rápida y confiable</strong> — sin buscar manualmente ni preguntar por WhatsApp — usando <strong>inteligencia artificial sobre el SharePoint como fuente única de verdad.</strong></p>
+    </div>
+    <div class="obj-grid">
+      <div class="obj-card"><div class="obj-num">01</div><div class="obj-title">Limpiar el SharePoint</div><div class="obj-desc">Eliminar archivos duplicados, información obsoleta y carpetas sin criterio claro.</div></div>
+      <div class="obj-card"><div class="obj-num">02</div><div class="obj-title">Definir una estructura simple y lógica</div><div class="obj-desc">Que sea fácil de entender, usar y mantener por todo el equipo.</div></div>
+      <div class="obj-card"><div class="obj-num">03</div><div class="obj-title">Establecer políticas claras</div><div class="obj-desc">De guardado, actualización y eliminación de información.</div></div>
+      <div class="obj-card"><div class="obj-num">04</div><div class="obj-title">Centralizar la información clave</div><div class="obj-desc">Evitar duplicación de contactos, tarifas y datos operativos. Una sola fuente en Excel o Tourplan.</div></div>
+      <div class="obj-card"><div class="obj-num">05</div><div class="obj-title">Construir una base de datos de hoteles</div><div class="obj-desc">Con toda la información relevante para el equipo de Sales.</div></div>
+      <div class="obj-card"><div class="obj-num">06</div><div class="obj-title">Construir una base de datos de proveedores</div><div class="obj-desc">Evaluando si se gestiona en Excel o en Tourplan.</div></div>
+      <div class="obj-card"><div class="obj-num">07</div><div class="obj-title">Generar contenido estandarizado de destinos</div><div class="obj-desc">Para asegurar consistencia en itinerarios, propuestas y materiales comerciales.</div></div>
+      <div class="obj-card"><div class="obj-num">08</div><div class="obj-title">Incorporar información de prestadores</div><div class="obj-desc">Incluyendo guías, vehículos y servicios asociados.</div></div>
+    </div>
+  </div>
+
+  <!-- 02 CRITERIO -->
+  <div class="section">
+    <h2 class="section-title">Criterio de trabajo</h2>
+    <p class="section-desc">Todo lo que hagamos tiene que funcionar para el equipo y para la IA. No son objetivos distintos — se resuelven con las mismas decisiones.</p>
+    <div class="two-col">
+      <div class="crit-card">
+        <div class="crit-icon">👤</div>
+        <div class="crit-title">Para que el equipo lo use</div>
+        <div class="crit-item">Carpetas organizadas de forma lógica y predecible</div>
+        <div class="crit-item">Un solo archivo por tema, sin copias ni duplicados</div>
+        <div class="crit-item">Siempre claro quién actualiza qué y cuándo</div>
+      </div>
+      <div class="crit-card" style="background:var(--blue-bg);border-color:#a8c4e8">
+        <div class="crit-icon">🤖</div>
+        <div class="crit-title" style="color:var(--blue)">Para que Copilot lo entienda</div>
+        <div class="crit-item" style="border-bottom-color:#c8ddf0;color:var(--blue)">Nombres de archivo claros y consistentes</div>
+        <div class="crit-item" style="border-bottom-color:#c8ddf0;color:var(--blue)">
+          Propiedades de archivo completas
+          <span class="sub" style="color:#4a7aab">Autor, fecha, tipo de documento — información que ayuda a Copilot a entender de qué trata cada archivo.</span>
+        </div>
+        <div class="crit-item" style="border-bottom-color:#c8ddf0;color:var(--blue)">
+          Sitios bien organizados
+          <span class="sub" style="color:#4a7aab">Cuanto más clara sea la organización del SharePoint, mejor entiende Copilot qué pertenece a qué área.</span>
+        </div>
+        <div class="crit-item" style="border-bottom-color:none;color:var(--blue)">Archivos con texto real — no fotos de documentos</div>
+      </div>
+    </div>
+    <div class="shared-card">
+      <div class="crit-icon" style="color:#fff">✦</div>
+      <div class="crit-title">Lo que les sirve a los dos</div>
+      <div class="crit-item">Información actualizada — sin versiones viejas dando vueltas</div>
+      <div class="crit-item">Un solo lugar por cada dato — no el mismo contacto en tres archivos distintos</div>
+      <div class="crit-item">Templates estandarizados para que todos carguen la información de la misma forma</div>
+      <div class="crit-item">Reglas claras de qué se guarda, dónde y quién lo mantiene</div>
+    </div>
+    <div class="note" style="background:var(--amber-bg);border:.5px solid #e8c87a">
+      <div style="font-size:15px;flex-shrink:0">💡</div>
+      <div class="note-text" style="color:var(--amber)">Un archivo llamado <strong>Final_v2_ESTE.pdf</strong> no existe para Copilot. Uno llamado <strong>Bariloche_TarifarioLodges_2026.pdf</strong> sí. Esa diferencia, multiplicada por cientos de archivos, define si la IA funciona o no.</div>
+    </div>
+  </div>
+
+  <!-- 03 PLAN DE TRABAJO -->
+  <div class="section">
+    <h2 class="section-title">Plan de trabajo</h2>
+    <p class="section-desc">Arrancamos enfocados en la carpeta de Tarifarios. Una vez que el proceso esté validado ahí, lo expandimos al resto del SharePoint.</p>
+
+    <div class="etapas">
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">1</div><div class="etapa-title">Diagnóstico — ¿qué tenemos hoy?</div></div>
+        <div class="etapa-body">
+          <div class="etapa-desc">Antes de tocar nada, miramos qué hay en la carpeta Tarifarios. Se genera un inventario automatizado — qué archivos hay, cuáles están duplicados, qué está desactualizado. Kiara te ayuda con esta parte. Se coordina con Mili y Jorge para no duplicar solicitudes ni esfuerzo.</div>
+          <div class="etapa-footer">
+            <span class="etapa-tag" style="background:var(--blue-bg);color:var(--blue);border:.5px solid #a8c4e8">Entregable: inventario completo</span>
+            <span class="etapa-tool">Automatizado con IA</span>
+            <span class="etapa-time">⏱ Semana 1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">2</div><div class="etapa-title">Estructura y lineamientos</div></div>
+        <div class="etapa-body">
+          <div class="etapa-desc">Con el diagnóstico en mano, confirmamos cómo se organiza la información y cómo se nombran los archivos. Nada se mueve hasta que esto esté aprobado.</div>
+          <div class="etapa-footer">
+            <span class="etapa-tag" style="background:var(--amber-bg);color:var(--amber);border:.5px solid #e8c87a">Entregable: lineamientos aprobados</span>
+            <span class="etapa-tool">Copilot</span>
+            <span class="etapa-time">⏱ Semana 2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">3</div><div class="etapa-title">Templates</div></div>
+        <div class="etapa-body">
+          <div class="etapa-desc">Creamos un documento base por tipo de contenido — hotel, proveedor, destino — con los campos que hay que completar. Así todos cargan la información de la misma forma. Involucra a Sales y Ops para definir qué datos necesitan.</div>
+          <div class="etapa-footer">
+            <span class="etapa-tag" style="background:var(--blue-bg);color:var(--blue);border:.5px solid #a8c4e8">Entregable: templates listos para usar</span>
+            <span class="etapa-tool">IA para generar borradores</span>
+            <span class="etapa-time">⏱ Semana 2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">4</div><div class="etapa-title">Ejecución — hoteles, traslados y proveedores</div></div>
+        <div class="etapa-body">
+          <div class="etapa-desc">La etapa más pesada. Reorganizamos toda la carpeta de Tarifarios: hoteles, traslados, excursiones. Centralizamos los contactos. Eliminamos lo viejo con validación de Sales destino por destino.</div>
+          <div class="etapa-footer">
+            <span class="etapa-tag" style="background:var(--teal-bg);color:var(--teal);border:.5px solid #8ecabc">Entregable: carpeta Tarifarios limpia + base de proveedores</span>
+            <span class="etapa-tool">IA para detectar duplicados</span>
+            <span class="etapa-time">⏱ Junio — Julio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">5</div><div class="etapa-title">Resto del SharePoint</div></div>
+        <div class="etapa-body">
+          <div class="etapa-desc">Aplicamos la misma lógica al resto: Operaciones, Marketing, Administración. Cada área tiene un responsable que confirma qué se queda y qué se elimina.</div>
+          <div class="etapa-footer">
+            <span class="etapa-tag" style="background:var(--offwhite);color:var(--muted);border:.5px solid var(--border)">Entregable: SharePoint completo reorganizado</span>
+            <span class="etapa-tool">Power Automate</span>
+            <span class="etapa-time">⏱ Agosto — Septiembre</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">6</div><div class="etapa-title">Contenido de destinos</div></div>
+        <div class="etapa-body">
+          <div class="etapa-desc">Armamos o actualizamos los pre-trips y webinars por destino. La IA genera los borradores a partir de la información que ya existe — el equipo revisa y aprueba. Se coordina con el proyecto del nuevo sitio web para no duplicar trabajo.</div>
+          <div class="etapa-footer">
+            <span class="etapa-tag" style="background:var(--green-bg);color:var(--green);border:.5px solid #b4d89a">Entregable: pre-trips y webinars por destino</span>
+            <span class="etapa-tool">IA para generar borradores</span>
+            <span class="etapa-time">⏱ Septiembre — Octubre</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 04 ESTRUCTURA -->
+  <div class="section">
+    <h2 class="section-title">Estructura propuesta</h2>
+    <p class="section-desc">Esta es la estructura de base acordada para la carpeta de Tarifarios. Se confirma o ajusta en la Etapa 2, una vez que tengamos el diagnóstico real. Los contactos de hoteles y proveedores no van dentro de cada carpeta — van centralizados para evitar que queden desactualizados.</p>
+
+    <div class="tree-wrap">
+      <div class="tree">
+        <ul>
+          <li>
+            <div class="tree-row"><span class="lbl chip-dest">📁 Destinos</span></div>
+            <ul>
+              <li>
+                <div class="tree-row"><span class="lbl chip-dest">📁 [País]</span><span class="tree-note">Argentina · Chile · Uruguay · etc.</span></div>
+                <ul>
+                  <li><div class="tree-row"><span class="lbl chip-file">📄 Pre-trip (.pdf)</span></div></li>
+                  <li><div class="tree-row"><span class="lbl chip-file">📄 Webinar (.pptx)</span></div></li>
+                  <li>
+                    <div class="tree-row"><span class="lbl chip-dest">📁 [Región]</span><span class="tree-note">Patagonia · Buenos Aires · Atacama · etc.</span></div>
+                    <ul>
+                      <li>
+                        <div class="tree-row"><span class="lbl chip-hotel">📁 Hoteles</span><span class="tree-note">ordenados por frecuencia de uso</span></div>
+                        <ul>
+                          <li>
+                            <div class="tree-row"><span class="lbl chip-hotel">📁 [Nombre del hotel]</span><span class="tree-note">sin subcarpetas</span></div>
+                            <ul>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Tarifario temporada vigente</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Fact sheet del hotel</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Menús: spa y excursiones (si aplica)</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Descriptivo del hotel</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Por qué lo elige Glove</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-ext">📋 Contactos → Excel o Tourplan</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-ext">📋 Encuestas de seguridad y seguros → carpeta aparte a definir</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-warn">📁 OLD · Info General · Pagos</span><span class="tree-note" style="color:var(--red)">se eliminan</span></div></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="tree-row"><span class="lbl chip-tras">📁 Traslados y Excursiones</span><span class="tree-note">ordenados por frecuencia de uso</span></div>
+                        <ul>
+                          <li>
+                            <div class="tree-row"><span class="lbl chip-tras">📁 [Nombre del proveedor]</span></div>
+                            <ul>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Tarifario con políticas de cancelación</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-file">📄 Menú de amenidades (box lunch, sorpresas)</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-sub">📁 Descriptivos de tours y traslados</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-sub">📁 Guías y perfiles</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-sub">📁 Vehículos</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-ext">📋 Contactos → Tourplan</span></div></li>
+                              <li><div class="tree-row"><span class="lbl chip-warn">📁 OLD y tarifarios viejos</span><span class="tree-note" style="color:var(--red)">se eliminan</span></div></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><div class="tree-row"><span class="lbl chip-rest">📁 Restaurantes y Eventos Especiales</span></div></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <hr class="tree-divider">
+        <div class="tree-row" style="margin-bottom:.5rem"><span class="lbl chip-db">📋 Base de Proveedores</span><span class="tree-note">fuente única de contactos — no se repite en carpetas individuales</span></div>
+        <div style="font-size:11.5px;color:var(--light);padding-left:.5rem;line-height:1.8">Nombre · Web · Contacto reservas · Recepción / operación · Urgencia</div>
+      </div>
+    </div>
+
+    <div class="open-box">
+      <div class="open-box-title">A definir</div>
+      <div class="open-item">¿Los contactos de hoteles y proveedores van en Tourplan o en un Excel en SharePoint? Tourplan es ideal para el equipo, pero Copilot no puede leer información que vive ahí directamente. Una opción es usar Tourplan como fuente principal y exportar periódicamente a Excel para que la IA lo pueda consultar.</div>
+      <div class="open-item">¿Las encuestas de seguridad y seguros van dentro de cada carpeta de hotel o en una carpeta centralizada aparte? Se sugiere dejarlas separadas para no mezclar documentación operativa con documentación comercial.</div>
+    </div>
+
+    <div class="note" style="background:var(--red-bg);border:.5px solid #e0b0b0">
+      <div style="font-size:15px;flex-shrink:0">⚠️</div>
+      <div class="note-text" style="color:var(--red)">Las carpetas <strong>OLD, Info General y Pagos se eliminan.</strong> Un archivo viejo en SharePoint es tan válido para Copilot como uno actual — eso genera respuestas incorrectas. Todo se borra con validación previa del área responsable.</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="background:var(--black);padding:2rem;text-align:center">
+  <p style="font-size:12px;color:rgba(255,255,255,.5)">Glove Travel · Proyecto SharePoint · Junio 2026 · Versión 1.0</p>
+</div>
+
+</body>
+</html>
